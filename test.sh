@@ -1,8 +1,8 @@
 echo "Running tests..."
 echo
 
-output=$(./main.out 3)
-expected_output="4"
+output=$(./main.out $1)
+expected_output=$2
 
 if [ $? -eq 0 ] ; then
   echo "Pass: Program exited zero"
