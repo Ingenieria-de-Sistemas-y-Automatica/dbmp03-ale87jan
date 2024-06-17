@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int contar_valor_en_array(int valor,int *array, unsigned int longitud, int *resultado);
 
