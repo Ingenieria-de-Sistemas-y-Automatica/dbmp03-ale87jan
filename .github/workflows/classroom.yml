@@ -14,6 +14,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Cache
+      id: cache
       uses: actions/cache@v4.0.2
       with:
         # A list of files, directories, and wildcard patterns to cache and restore
@@ -35,8 +36,6 @@ jobs:
     - name: Set up NASM
       if: steps.cache.outputs.cache-hit != 'true'
       uses: ilammy/setup-nasm@v1.5.1
-      with: 
-        destination: ./nasm
     - name: hello world test
       id: hello-world-test
       uses: classroom-resources/autograding-command-grader@v1
