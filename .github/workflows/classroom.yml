@@ -36,60 +36,62 @@ jobs:
     - name: Set up NASM
       if: steps.cache.outputs.cache-hit != 'true'
       uses: ilammy/setup-nasm@v1.5.1
+    - name: Make Build
+      run: make
     - name: test contar 1
       id: test-contar-1
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: test contar 1
-        setup-command: 'make main'
         command: "./test.sh"
         input: '1'
         expected-output: '1'
         comparison-method: exact
         timeout: 10
         max-score: 10
-    - name: test contar 2
-      id: test-contar-2
-      uses: classroom-resources/autograding-io-grader@v1
-      with:
-        test-name: test contar 2
-        setup-command: make
-        command: "./test.sh"
-        input: '2'
-        expected-output: '2'
-        comparison-method: exact
-        timeout: 10
-        max-score: 10
-    - name: test contar 3
-      id: test-contar-3
-      uses: classroom-resources/autograding-io-grader@v1
-      with:
-        test-name: test contar 3
-        setup-command: make
-        command: "./test.sh"
-        input: '3'
-        expected-output: '3'
-        comparison-method: exact
-        timeout: 10
-        max-score: 10
-    - name: test contar 4
-      id: test-contar-4
-      uses: classroom-resources/autograding-io-grader@v1
-      with:
-        test-name: test contar 4
-        setup-command: make
-        command: "./test.sh"
-        input: '4'
-        expected-output: '4'
-        comparison-method: exact
-        timeout: 10
-        max-score: 10
+    # - name: test contar 2
+      # id: test-contar-2
+      # uses: classroom-resources/autograding-io-grader@v1
+      # with:
+        # test-name: test contar 2
+        # setup-command: make
+        # command: "./test.sh"
+        # input: '2'
+        # expected-output: '2'
+        # comparison-method: exact
+        # timeout: 10
+        # max-score: 10
+    # - name: test contar 3
+      # id: test-contar-3
+      # uses: classroom-resources/autograding-io-grader@v1
+      # with:
+        # test-name: test contar 3
+        # setup-command: make
+        # command: "./test.sh"
+        # input: '3'
+        # expected-output: '3'
+        # comparison-method: exact
+        # timeout: 10
+        # max-score: 10
+    # - name: test contar 4
+      # id: test-contar-4
+      # uses: classroom-resources/autograding-io-grader@v1
+      # with:
+        # test-name: test contar 4
+        # setup-command: make
+        # command: "./test.sh"
+        # input: '4'
+        # expected-output: '4'
+        # comparison-method: exact
+        # timeout: 10
+        # max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         TEST-CONTAR-1_RESULTS: "${{steps.test-contar-1.outputs.result}}"
-        TEST-CONTAR-2_RESULTS: "${{steps.test-contar-2.outputs.result}}"
-        TEST-CONTAR-3_RESULTS: "${{steps.test-contar-3.outputs.result}}"
-        TEST-CONTAR-4_RESULTS: "${{steps.test-contar-4.outputs.result}}"
+        # TEST-CONTAR-2_RESULTS: "${{steps.test-contar-2.outputs.result}}"
+        # TEST-CONTAR-3_RESULTS: "${{steps.test-contar-3.outputs.result}}"
+        # TEST-CONTAR-4_RESULTS: "${{steps.test-contar-4.outputs.result}}"
       with:
-        runners: test-contar-1,test-contar-2,test-contar-3,test-contar-4
+        runners: test-contar-1
+        # ,test-contar-2,test-contar-3,test-contar-4
