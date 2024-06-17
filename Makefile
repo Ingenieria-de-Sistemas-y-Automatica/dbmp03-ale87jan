@@ -12,8 +12,8 @@ main: $(SRC)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-#%.elf: %.S
-#	$(AS) $(ASFLAGS) $< -o $@
+%.elf: %.S
+	$(AS) $(ASFLAGS) $< -o $@
 
 run: main
 	./main
