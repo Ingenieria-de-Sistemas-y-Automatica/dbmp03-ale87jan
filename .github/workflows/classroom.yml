@@ -41,7 +41,7 @@ jobs:
       uses: classroom-resources/autograding-io-grader@v1
       with:
         test-name: test contar 1
-        setup-command: make
+        setup-command: 'make main'
         command: "./test.sh"
         input: '1'
         expected-output: '1'
