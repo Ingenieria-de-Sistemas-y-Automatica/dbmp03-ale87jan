@@ -3,7 +3,7 @@
 int contar_valor_en_array(int valor,int *array, unsigned int longitud, int *resultado);
 
 int main(int argc, char *argv[]) {
-  int array[10] = {1, 2, 3, 3, 3, 4, 5, 6, 7, 3};
+  int array[10] = {1, 2, 2, 3, 3, 3, 4, 4, 4, 4};
   int valor = argc==0? 3: atoi(argv[0]);
   int ret;
   int cuenta;
