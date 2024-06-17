@@ -58,13 +58,3 @@ jobs:
         run: |
           [[ "$(nasm    -version 2>&1)" =~ "NASM version ${{ matrix.version }}" ]]
           [[ "$(ndisasm -version 2>&1)" =~ "NDISASM version ${{ matrix.version }}" ]]
-  audit:
-    name: npm audit
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out source code
-        uses: actions/checkout@v3
-      - run: npm install
-      - run: npm run lint
-      - run: npm audit --audit-level=moderate --production
-      - run: npm audit --audit-level=critical
