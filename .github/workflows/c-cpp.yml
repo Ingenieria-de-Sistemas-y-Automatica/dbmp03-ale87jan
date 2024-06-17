@@ -1,25 +1,70 @@
-name: C/C++ CI
+name: setup-nasm
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
+  push:
+    branches:
+      - master
+      - release/*
+  schedule:
+    - cron:  '0 6 * * 1'
 
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
+  test-default:
+    name: default
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+        version: [2.16.01, 2.15.05, 2.14.02]
     steps:
-    - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
-    - name: make
-      run: make
-    - name: make check
-      run: make check
-    - name: make distcheck
-      run: make distcheck
-    - name: Set up NASM
-      uses: ilammy/setup-nasm@v1.5.1          
+      - name: Check out source code
+        uses: actions/checkout@v3
+      - name: Download Internet
+        run: npm install
+      - name: Install NASM
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+      - name: Verify NASM
+        shell: bash
+        run: |
+          [[ "$(nasm    -version 2>&1)" =~ "NASM version ${{ matrix.version }}" ]]
+          [[ "$(ndisasm -version 2>&1)" =~ "NDISASM version ${{ matrix.version }}" ]]
+  # We currently do not support source builds on Windows,
+  # but GitHub Actions strategy.matrix.exclude is current bugged
+  # so we have to duplicate the job instead of filtering out :(
+  test-source:
+    name: source-only
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        version: [2.16.01, 2.15.05, 2.14.02]
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+      - name: Download Internet
+        run: npm install
+      - name: Install NASM
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+          from-source: true
+      - name: Verify NASM
+        shell: bash
+        run: |
+          [[ "$(nasm    -version 2>&1)" =~ "NASM version ${{ matrix.version }}" ]]
+          [[ "$(ndisasm -version 2>&1)" =~ "NDISASM version ${{ matrix.version }}" ]]
+  audit:
+    name: npm audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+      - run: npm install
+      - run: npm run lint
+      - run: npm audit --audit-level=moderate --production
+      - run: npm audit --audit-level=critical
