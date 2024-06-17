@@ -21,7 +21,7 @@ jobs:
       with:
         test-name: hello world test
         setup-command: ''
-        command: make
+        command: make test
         timeout: 10
         max-score: 10
     - name: Autograding Reporter
