@@ -9,8 +9,10 @@ int main(int argc, char *argv[]) {
   int cuenta;
   ret = contar_valor_en_array(valor, array, 10, &cuenta);
   if (ret != 0)
-    printf("\nEl valor %d aparece %u veces.", valor, cuenta);
-  else
-    printf("\nError");
+    printf("%u\n", cuenta);
+  else{
+    printf("Error\n");
+    return 1;
+  }
   return 0;
   }
