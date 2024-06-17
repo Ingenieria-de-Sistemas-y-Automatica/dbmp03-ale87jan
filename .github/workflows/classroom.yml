@@ -92,4 +92,4 @@ jobs:
         TEST-CONTAR-3_RESULTS: "${{steps.test-contar-3.outputs.result}}"
         TEST-CONTAR-4_RESULTS: "${{steps.test-contar-4.outputs.result}}"
       with:
-        runners: hello-world-test,test-contar-1,test-contar-2,test-contar-3,test-contar-4
+        runners: test-contar-1,test-contar-2,test-contar-3,test-contar-4
