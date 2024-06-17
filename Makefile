@@ -19,4 +19,4 @@ run: main
 	./main
 
 clean:
-	rm main *.elf *.o
+	rm main *.o

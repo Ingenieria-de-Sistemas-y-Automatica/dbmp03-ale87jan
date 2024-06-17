@@ -1,7 +1,7 @@
 echo "Running tests..."
 echo
 
-output=$(./a.out)
+output=$(./main.out)
 expected_output="4"
 
 if [ $? -eq 0 ] ; then
