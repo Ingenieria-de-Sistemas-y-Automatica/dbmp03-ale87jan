@@ -17,7 +17,7 @@ jobs:
       uses: actions/cache@v4.0.2
       with:
         # A list of files, directories, and wildcard patterns to cache and restore
-        path: ./nasm
+        path: $HOME/nasm
         # An explicit key for restoring and saving the cache
         key: nasm-v1.5.1
         # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
